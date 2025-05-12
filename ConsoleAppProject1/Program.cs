@@ -9,7 +9,7 @@ namespace ConsoleAppProject1
 {
     internal class Program
     {
-        static List<int> Series = new List<int>();
+        static List<float> Series = new List<float>();
         public static void Main(string[] args)
         {
             bool IsValid = ValidateNums(args);
@@ -32,7 +32,10 @@ namespace ConsoleAppProject1
                 {
                     exit = true;
                 }
-                chooseOption(choice);
+                else
+                {
+                    implementOption(choice);
+                }
                 } while (!exit);
 
 
@@ -51,15 +54,15 @@ namespace ConsoleAppProject1
                 Console.WriteLine("a. Input a series");
                 Console.WriteLine("b. Display in order");
                 Console.WriteLine("c. Display in reverse order");
-                Console.WriteLine("d. Display max number");
+                Console.WriteLine("d. Display in sorted order");
                 Console.WriteLine("e. Display min number");
-                Console.WriteLine("f. Display average");
-                Console.WriteLine("g. Display count of numbers");
-                Console.WriteLine("h. Display sum of numbers");
-                Console.WriteLine("i. Display sorted numbers");
+                Console.WriteLine("f. Display max number");
+                Console.WriteLine("g. Display average");
+                Console.WriteLine("h. Display number of elements");
+                Console.WriteLine("i. Display the sum of numbers");
         }
 
-        static void chooseOption(string choice)
+        static void implementOption(string choice)
         {
                 switch (choice)
                 {
@@ -108,10 +111,10 @@ namespace ConsoleAppProject1
         static bool ValidateNums(string[] input) {
             if (input.Length < 3)
                 return false;
-            int[] nums = new int[input.Length];
+            float[] nums = new float[input.Length];
             for (int i = 0; i < input.Length; i++)
             {
-                if (!int.TryParse(input[i], out nums[i]))
+                if (!float.TryParse(input[i], out nums[i]))
                 {
                     return false;
                 }
@@ -126,7 +129,7 @@ namespace ConsoleAppProject1
         }
 
 
-        public static void DisplayInOrder(int[] numbers) {
+        public static void DisplayInOrder(float[] numbers) {
             foreach (int i in numbers) {
                 Console.Write($"{i} ");
             }
@@ -134,24 +137,84 @@ namespace ConsoleAppProject1
         } 
 
 
-        public static void DisplayInReverse(int[] numbers) { }
+        public static void DisplayInReverse(float[] numbers) {
+            int len = numbers.Length;
+            for (int i = len - 1; i >= 0; i--)
+            {
+                Console.Write($"{numbers[i]} ");
+            }
+            Console.WriteLine();
 
-        public static void DisplaySorted(int[] numbers) { }
+        }
+
+        public static void DisplaySorted(float[] numbers) {
+            List<float> sorted = new List<float>(numbers);
+            sorted.Sort();
+            for (int i = 0; i < sorted.Count; i++)
+            {
+                Console.Write($"{sorted[i]} ");
+            }
+            Console.WriteLine();
+        }
 
 
-        public static void DisplayMax(int[] numbers) { }
+        public static void DisplayMax(float[] numbers) {
+            int biggest = 0;
+            foreach (int i in numbers)
+            {
+                if (i > biggest)
+                {
+                    biggest = i;
+                }
+            }
+            Console.WriteLine(biggest);
+        }
 
 
-        public static void DisplayMin(int[] numbers) { }
+        public static void DisplayMin(float[] numbers) {
+            int smallest = 0;
+            foreach (int i in numbers)
+            {
+                if (i > smallest)
+                {
+                    smallest = i;
+                }
+            }
+            Console.WriteLine(smallest);
+        }
 
 
-        public static void DisplayAverage(int[] numbers) { }
+        public static void DisplayAverage(float[] numbers) {
+            float sum = 0;
+            int len = numbers.Length;
+            foreach (int i in numbers)
+            {
+                sum += i;
+            }
+            float average = sum / len;
+            Console.WriteLine(average);
+
+        }
 
 
-        public static void DisplayNumsCount(int[] numbers) { }
+        public static void DisplayNumsCount(float[] numbers) {
+            int len = 0;
+            foreach(int i in numbers)
+            {
+                len++;
+            }
+            Console.WriteLine(len);
+        }
 
 
-        public static void DisplaySum(int[] numbers) { }
+        public static void DisplaySum(float[] numbers) {
+            float sum = 0;
+            foreach(float i in numbers)
+            {
+                sum += i;
+            }
+            Console.WriteLine(sum);
+        }
     }
 
     
