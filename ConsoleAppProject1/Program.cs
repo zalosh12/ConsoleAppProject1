@@ -13,10 +13,31 @@ namespace ConsoleAppProject1
         public static void Main(string[] args)
         {
             bool IsValid = ValidateNums(args);
-            ManageMenu(IsValid);
-           
+            if (IsValid)
+            {
+                Console.WriteLine("Valid input. Proceeding with the program.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+                InputUser();
+            }
 
-          
+            bool exit = false;
+            do { 
+               DisplayMenu();
+                Console.WriteLine("Please choose an option:");
+                string choice = Console.ReadLine();
+                if (choice == "j")
+                {
+                    exit = true;
+                }
+                chooseOption(choice);
+                } while (!exit);
+
+
+
+
         }
 
 
@@ -26,36 +47,20 @@ namespace ConsoleAppProject1
 
         public static void DisplayMenu()
         {
-            Console.WriteLine("a. Input a series");
-            Console.WriteLine("b. Display in order");
-            Console.WriteLine("c. Display in reverse order");
-            Console.WriteLine("d. Display max number");
-            Console.WriteLine("e. Display min number");
-            Console.WriteLine("f. Display average");
-            chooseOption();
+    
+                Console.WriteLine("a. Input a series");
+                Console.WriteLine("b. Display in order");
+                Console.WriteLine("c. Display in reverse order");
+                Console.WriteLine("d. Display max number");
+                Console.WriteLine("e. Display min number");
+                Console.WriteLine("f. Display average");
+                Console.WriteLine("g. Display count of numbers");
+                Console.WriteLine("h. Display sum of numbers");
+                Console.WriteLine("i. Display sorted numbers");
         }
 
-        public static void ManageMenu(bool Valid)
+        static void chooseOption(string choice)
         {
-            if (Valid)
-            {
-                DisplayMenu();
-            }
-            else
-            {
-                {   Console.WriteLine("Invalid input. Please enter a valid number.");
-                    InputUser();
-                }
-            }
-        }
-
-        static void chooseOption()
-        {
-            bool exit = false;
-            Console.WriteLine("Please choose an option:");
-            string choice = Console.ReadLine();
-            do
-            {
                 switch (choice)
                 {
                     case "a":
@@ -68,30 +73,28 @@ namespace ConsoleAppProject1
                         DisplayInReverse(Series.ToArray());
                         break;
                     case "d":
-                        DisplayMax(Series.ToArray());
+                        DisplaySorted(Series.ToArray());
                         break;
                     case "e":
-                        DisplayMin(Series.ToArray());
+                        DisplayMax(Series.ToArray());
                         break;
                     case "f":
-                        DisplayAverage(Series.ToArray());
+                        DisplayMin(Series.ToArray());
                         break;
                     case "g":
-                        DisplayNumsCount(Series.ToArray());
+                        DisplayAverage(Series.ToArray());
                         break;
                     case "h":
-                        DisplaySum(Series.ToArray());
+                        DisplayNumsCount(Series.ToArray());
                         break;
                     case "i":
-                        Environment.Exit(0);
-                        break;
+                        DisplaySum(Series.ToArray());
+                        break; 
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
 
                 }
-                DisplayMenu();
-            } while (!exit);
         }
 
 
@@ -109,6 +112,10 @@ namespace ConsoleAppProject1
             for (int i = 0; i < input.Length; i++)
             {
                 if (!int.TryParse(input[i], out nums[i]))
+                {
+                    return false;
+                }
+                else if (nums[i] < 0)
                 {
                     return false;
                 }
