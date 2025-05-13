@@ -9,7 +9,7 @@ namespace ConsoleAppProject1
 {
     internal class Program
     {
-        static List<float> Series = new List<float>();
+        static float[] Series;
         public static void Main(string[] args)
         {
             bool IsValid = ValidateNums(args);
@@ -123,7 +123,7 @@ namespace ConsoleAppProject1
                     return false;
                 }
             }
-            Series = nums.ToList();
+            Series = nums;
             return true;
 
         }
