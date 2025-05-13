@@ -13,11 +13,8 @@ namespace ConsoleAppProject1
         public static void Main(string[] args)
         {
             bool IsValid = ValidateNums(args);
-            if (IsValid)
-            {
-                Console.WriteLine("Valid input. Proceeding with the program.");
-            }
-            else
+            if (IsValid == false)
+
             {
                 Console.WriteLine("Invalid input. Please enter a valid number.");
                 InputUser();
@@ -47,21 +44,22 @@ namespace ConsoleAppProject1
 
 
 
-
+        /// Display the menu options
         public static void DisplayMenu()
         {
-    
-                Console.WriteLine("a. Input a series");
-                Console.WriteLine("b. Display in order");
-                Console.WriteLine("c. Display in reverse order");
-                Console.WriteLine("d. Display in sorted order");
-                Console.WriteLine("e. Display min number");
-                Console.WriteLine("f. Display max number");
-                Console.WriteLine("g. Display average");
-                Console.WriteLine("h. Display number of elements");
-                Console.WriteLine("i. Display the sum of numbers");
-        }
 
+            Console.WriteLine("a. Input a series");
+            Console.WriteLine("b. Display in order");
+            Console.WriteLine("c. Display in reverse order");
+            Console.WriteLine("d. Display in sorted order");
+            Console.WriteLine("e. Display min number");
+            Console.WriteLine("f. Display max number");
+            Console.WriteLine("g. Display average");
+            Console.WriteLine("h. Display number of elements");
+            Console.WriteLine("i. Display the sum of numbers");
+            Console.WriteLine("j. Exit");
+        }
+        // implement the option selected by the user
         static void implementOption(string choice)
         {
                 switch (choice)
@@ -100,14 +98,20 @@ namespace ConsoleAppProject1
                 }
         }
 
-
+        //received input from the user
         public static void InputUser() {
             Console.WriteLine("Please enter a series of numbers separated by spaces:");
             string input = Console.ReadLine();
-            ValidateNums(input.Split(' '));
-        }
-        
+            bool valid = ValidateNums(input.Split(' '));
+            if (!valid)
+            {
+                Console.WriteLine("Invalid input try again");
+                InputUser();
+            }
 
+        }
+
+        // Validate the input numbers
         static bool ValidateNums(string[] input) {
             if (input.Length < 3)
                 return false;
@@ -128,15 +132,15 @@ namespace ConsoleAppProject1
 
         }
 
-
+        //display the series in order
         public static void DisplayInOrder(float[] numbers) {
             foreach (int i in numbers) {
                 Console.Write($"{i} ");
             }
             Console.WriteLine();
-        } 
+        }
 
-
+        //display the series in reverse order
         public static void DisplayInReverse(float[] numbers) {
             int len = numbers.Length;
             for (int i = len - 1; i >= 0; i--)
@@ -146,7 +150,7 @@ namespace ConsoleAppProject1
             Console.WriteLine();
 
         }
-
+        //display the series in sorted order
         public static void DisplaySorted(float[] numbers) {
             List<float> sorted = new List<float>(numbers);
             sorted.Sort();
@@ -157,7 +161,7 @@ namespace ConsoleAppProject1
             Console.WriteLine();
         }
 
-
+        //display the max number in the series
         public static void DisplayMax(float[] numbers) {
             int biggest = 0;
             foreach (int i in numbers)
@@ -170,7 +174,7 @@ namespace ConsoleAppProject1
             Console.WriteLine(biggest);
         }
 
-
+        //display the min number in the series
         public static void DisplayMin(float[] numbers) {
             int smallest = 0;
             foreach (int i in numbers)
@@ -183,7 +187,7 @@ namespace ConsoleAppProject1
             Console.WriteLine(smallest);
         }
 
-
+        //display the average of the series
         public static void DisplayAverage(float[] numbers) {
             float sum = 0;
             int len = numbers.Length;
@@ -196,7 +200,7 @@ namespace ConsoleAppProject1
 
         }
 
-
+        //display the number of elements in the series
         public static void DisplayNumsCount(float[] numbers) {
             int len = 0;
             foreach(int i in numbers)
